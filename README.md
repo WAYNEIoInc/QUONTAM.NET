@@ -6,7 +6,7 @@ Built and powered by [WAYNEio.Inc](mailto:wayneio.inc@gmail.com) — designed to
 ---
 
 ## 🔗 Live Preview  
-🌐 [Visit Website](https://wayneioinc.github.io/quontam-net/)
+🌐 [Visit Website](https://wayneioinc.github.io/QUONTAM.NET/)
 
 ---
 
