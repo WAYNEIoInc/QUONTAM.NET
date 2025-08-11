@@ -273,39 +273,7 @@
 </head>
 <body>
   <header>
-    <h1>What Our Clients Say</h1>
-  </header>
-
-  <form>
-    <h2>Leave a Review</h2>
-    <input type="text" placeholder="Your Name" required>
-    <select required>
-      <option value="">Rating</option>
-      <option>5 Stars</option>
-      <option>4 Stars</option>
-      <option>3 Stars</option>
-      <option>2 Stars</option>
-      <option>1 Star</option>
-    </select>
-    <textarea placeholder="Your Review" rows="4" required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
-
-  <a href="index.html">Back to Home</a>
-
-  <script>
-    const cards = document.querySelectorAll('.card');
-    window.addEventListener('scroll', () => {
-      const triggerBottom = window.innerHeight * 0.85;
-      cards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-        if (cardTop < triggerBottom) {
-          card.classList.add('visible');
-        }
-      });
-    });
-  </script>
-</body>
+   
 
 </html>
 <!-- review.html -->
