@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,45 +9,39 @@
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
-      background-image: url('wave-background.png');
-      background-size: cover;
-      background-repeat: no-repeat;
+      background: linear-gradient(135deg, #000428, #004e92);
       background-attachment: fixed;
       color: white;
     }
     header {
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 2em;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 2em 1em;
       text-align: center;
     }
     header h1 {
       font-family: 'Wide Latin', sans-serif;
       color: #00FFFF;
       margin: 0;
+      font-size: 1.8em;
     }
     header p {
-      font-size: 1.2em;
+      font-size: 1.1em;
       color: #aaa;
     }
     nav {
       background-color: #000;
-      padding: 1em 0;
+      padding: 0.5em 0;
     }
     nav ul {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       list-style-type: none;
+      flex-wrap: wrap;
       padding: 0;
       margin: 0;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-    nav ul::-webkit-scrollbar {
-      display: none;
     }
     nav ul li {
-      margin: 0 20px;
+      margin: 0.5em 1em;
     }
     nav ul li a {
       text-decoration: none;
@@ -56,11 +49,16 @@
       font-weight: bold;
       font-family: 'Poppins', sans-serif;
       cursor: pointer;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #fff;
+      border-bottom: 2px solid #00FFFF;
     }
     section {
-      padding: 3em 1em;
+      padding: 2em 1em;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.65);
       margin: 1em;
       border-radius: 12px;
       display: none;
@@ -68,16 +66,31 @@
     section.active {
       display: block;
     }
+    .btn {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 0.8em 1.2em;
+      background: #00FFFF;
+      color: #000;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #00cccc;
+    }
     .pricing-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 2em;
+      margin-top: 1.5em;
     }
     .pricing-table th,
     .pricing-table td {
       border: 1px solid #00FFFF;
       padding: 10px;
       font-family: 'Poppins', sans-serif;
+      font-size: 0.9em;
     }
     .pricing-table th {
       background-color: #001f3f;
@@ -86,25 +99,58 @@
     .team {
       display: flex;
       justify-content: center;
-      gap: 3em;
+      gap: 2em;
       flex-wrap: wrap;
     }
     .team img {
-      width: 150px;
+      width: 120px;
       border-radius: 50%;
       border: 3px solid #00FFFF;
-    }
-    .team div {
-      max-width: 200px;
     }
     footer {
       background-color: #000;
       color: white;
       text-align: center;
-      padding: 2em;
+      padding: 2em 1em;
+      font-size: 0.9em;
     }
-    .wide-latin {
-      font-family: 'Wide Latin', sans-serif;
+    .review-box {
+      margin-top: 1.5em;
+    }
+    .review-box textarea {
+      width: 90%;
+      max-width: 400px;
+      height: 80px;
+      border-radius: 8px;
+      padding: 0.5em;
+      font-family: 'Roboto', sans-serif;
+    }
+    .stars span {
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.active {
+      color: gold;
+    }
+    .reviews-list {
+      margin-top: 1.5em;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .review-item {
+      border-bottom: 1px solid #555;
+      padding: 0.5em 0;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.4em;
+      }
+      nav ul li {
+        margin: 0.3em;
+      }
     }
   </style>
 </head>
@@ -117,7 +163,7 @@
     <ul>
       <li><a onclick="showSection('home')">Home</a></li>
       <li><a onclick="showSection('about')">About Us</a></li>
-      <li><a onclick="showSection('services')">Services/Products</a></li>
+      <li><a onclick="showSection('services')">Services</a></li>
       <li><a onclick="showSection('projects')">Projects</a></li>
       <li><a onclick="showSection('news')">News</a></li>
       <li><a onclick="showSection('team')">Team</a></li>
@@ -126,16 +172,23 @@
       <li><a onclick="showSection('contact')">Contact</a></li>
     </ul>
   </nav>
+
   <section id="home" class="active">
     <h2>Welcome to QUONTAM.NET</h2>
     <p>Your trusted partner in networking and hotspot business solutions.</p>
+    <a class="btn" onclick="showSection('about')">Read the Decree</a>
   </section>
+
   <section id="about">
     <h2>About Us</h2>
-    <p>We offer smart, scalable, and affordable networking infrastructure for homes, businesses, and institutions.</p>
+    <p>By decree of the Mad King CEO, QUONTAM.NET was forged not just as a company, but as a movement. A vision where connectivity isn’t a privilege, but a right.</p>
+    <p>From humble beginnings with Wi-Fi hotspots, QUONTAM has risen into a banner of innovation, building networks that empower communities, businesses, and dreamers alike.</p>
+    <p>Our mission: To conquer disconnection, to crown every home, street, and enterprise with limitless access to the digital kingdom.</p>
+    <p><strong>QUONTAM SHALL RISE. QUONTAM SHALL CONQUER.</strong></p>
   </section>
+
   <section id="services">
-    <h2>Services & Products</h2>
+    <h2>Services</h2>
     <table class="pricing-table">
       <tr><th>Plan</th><th>Duration</th><th>Price (KES)</th></tr>
       <tr><td>Bronze</td><td>1 hour</td><td>10</td></tr>
@@ -148,14 +201,17 @@
       <tr><td>Enterprise Plan</td><td>Contact Us</td><td>--</td></tr>
     </table>
   </section>
+
   <section id="projects">
     <h2>Our Projects</h2>
     <p>Stay tuned for updates on major deployments, installations, and success stories.</p>
   </section>
+
   <section id="news">
     <h2>Latest News</h2>
     <p>Updates, launches, and press releases will appear here.</p>
   </section>
+
   <section id="team">
     <h2>Meet the Team</h2>
     <div class="team">
@@ -165,27 +221,43 @@
         <p>Founder / Team Lead</p>
       </div>
       <div>
-        <img src="cfo-avatar.jpg" alt="Mary Wayne">
+        <img src="cfo-avatar.jpg" alt="Alexa">
         <h3 class="wide-latin">ALEXA</h3>
         <p>Chief Financial Officer</p>
       </div>
     </div>
   </section>
+
   <section id="testimonials">
     <h2>Testimonials</h2>
-    <p>Hear from our satisfied clients.</p>
+    <div class="review-box">
+      <textarea id="reviewText" placeholder="Write your review..."></textarea>
+      <div class="stars" id="stars">
+        <span data-star="1">★</span>
+        <span data-star="2">★</span>
+        <span data-star="3">★</span>
+        <span data-star="4">★</span>
+        <span data-star="5">★</span>
+      </div>
+      <button class="btn" onclick="submitReview()">Submit</button>
+      <div class="reviews-list" id="reviewsList"></div>
+    </div>
   </section>
+
   <section id="faq">
     <h2>FAQs</h2>
     <p>Find answers to common questions here.</p>
   </section>
+
   <section id="contact">
     <h2>Contact Us</h2>
     <p>Phone: +254784400105<br>Email: wayneio.inc@gmail.com</p>
   </section>
+
   <footer>
     <p>&copy; 2025 QUONTAM.NET - Powered by WAYNEio Inc. All rights reserved.</p>
   </footer>
+
   <script>
     let currentSection = 'home';
     function showSection(id) {
@@ -198,6 +270,46 @@
         currentSection = id;
       }
     }
+
+    // Reviews logic with localStorage
+    const stars = document.querySelectorAll('#stars span');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = star.getAttribute('data-star');
+        stars.forEach(s => s.classList.remove('active'));
+        for (let i = 0; i < selectedRating; i++) {
+          stars[i].classList.add('active');
+        }
+      });
+    });
+
+    function submitReview() {
+      const text = document.getElementById('reviewText').value.trim();
+      if (!text || selectedRating === 0) return;
+      const review = { text, rating: selectedRating };
+      let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.push(review);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      document.getElementById('reviewText').value = '';
+      selectedRating = 0;
+      stars.forEach(s => s.classList.remove('active'));
+      displayReviews();
+    }
+
+    function displayReviews() {
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      const list = document.getElementById('reviewsList');
+      list.innerHTML = '';
+      reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.classList.add('review-item');
+        div.innerHTML = `<p>${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</p><p>${r.text}</p>`;
+        list.appendChild(div);
+      });
+    }
+    displayReviews();
   </script>
 </body>
 </html>
