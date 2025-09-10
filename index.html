@@ -1,315 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QUONTAM.NET - WAYNEio Inc.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #000428, #004e92);
-      background-attachment: fixed;
-      color: white;
-    }
-    header {
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 2em 1em;
-      text-align: center;
-    }
-    header h1 {
-      font-family: 'Wide Latin', sans-serif;
-      color: #00FFFF;
-      margin: 0;
-      font-size: 1.8em;
-    }
-    header p {
-      font-size: 1.1em;
-      color: #aaa;
-    }
-    nav {
-      background-color: #000;
-      padding: 0.5em 0;
-    }
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style-type: none;
-      flex-wrap: wrap;
-      padding: 0;
-      margin: 0;
-    }
-    nav ul li {
-      margin: 0.5em 1em;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: #00FFFF;
-      font-weight: bold;
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      transition: color 0.3s ease, border-bottom 0.3s ease;
-    }
-    nav ul li a:hover {
-      color: #fff;
-      border-bottom: 2px solid #00FFFF;
-    }
-    section {
-      padding: 2em 1em;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.65);
-      margin: 1em;
-      border-radius: 12px;
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 1em;
-      padding: 0.8em 1.2em;
-      background: #00FFFF;
-      color: #000;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: #00cccc;
-    }
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1.5em;
-    }
-    .pricing-table th,
-    .pricing-table td {
-      border: 1px solid #00FFFF;
-      padding: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9em;
-    }
-    .pricing-table th {
-      background-color: #001f3f;
-      color: #fff;
-    }
-    .team {
-      display: flex;
-      justify-content: center;
-      gap: 2em;
-      flex-wrap: wrap;
-    }
-    .team img {
-      width: 120px;
-      border-radius: 50%;
-      border: 3px solid #00FFFF;
-    }
-    footer {
-      background-color: #000;
-      color: white;
-      text-align: center;
-      padding: 2em 1em;
-      font-size: 0.9em;
-    }
-    .review-box {
-      margin-top: 1.5em;
-    }
-    .review-box textarea {
-      width: 90%;
-      max-width: 400px;
-      height: 80px;
-      border-radius: 8px;
-      padding: 0.5em;
-      font-family: 'Roboto', sans-serif;
-    }
-    .stars span {
-      font-size: 1.5em;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .stars span.active {
-      color: gold;
-    }
-    .reviews-list {
-      margin-top: 1.5em;
-      text-align: left;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .review-item {
-      border-bottom: 1px solid #555;
-      padding: 0.5em 0;
-    }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.4em;
-      }
-      nav ul li {
-        margin: 0.3em;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUONTAM.NET - WAYNEio Inc.</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Roboto',sans-serif; background:linear-gradient(135deg,#000428,#004e92); color:white; }
+header { text-align:center; padding:2em; background:rgba(0,0,0,0.85); }
+header h1, header p { color:#00FFFF; font-family:'Wide Latin',sans-serif; margin:0; }
+header h1 { font-size:2em; }
+header p { font-size:1.2em; }
+nav ul { display:flex; justify-content:center; list-style:none; padding:0; margin:0; flex-wrap:wrap; background:#000; }
+nav ul li { margin:0.5em 1em; }
+nav ul li a { color:#00FFFF; text-decoration:none; font-weight:bold; cursor:pointer; font-family:'Poppins',sans-serif; }
+nav ul li a:hover { color:#fff; border-bottom:2px solid #00FFFF; }
+section { display:none; padding:2em 1em; background:rgba(0,0,0,0.65); margin:1em auto; border-radius:12px; max-width:900px; text-align:center; }
+section.active { display:block; }
+.btn { display:inline-block; margin-top:1em; padding:0.8em 1.2em; background:#00FFFF; color:#000; border-radius:8px; font-weight:bold; cursor:pointer; }
+.btn:hover { background:#00cccc; }
+table { width:100%; border-collapse:collapse; margin-top:1.5em; }
+th, td { border:1px solid #00FFFF; padding:10px; font-family:'Poppins',sans-serif; font-size:0.9em; }
+th { background-color:#001f3f; color:#fff; }
+.team { display:flex; justify-content:center; gap:2em; flex-wrap:wrap; }
+.team img { width:120px; border-radius:50%; border:3px solid #00FFFF; }
+.review-box input, .review-box textarea { width:90%; max-width:400px; margin-bottom:0.5em; padding:0.5em; border-radius:8px; }
+.stars { display:flex; gap:0.2em; justify-content:center; margin-bottom:0.5em; }
+.stars span { font-size:1.5em; cursor:pointer; color:#ccc; }
+.stars span.active { color:gold; }
+.reviews-list { margin-top:1em; text-align:left; max-width:600px; margin-left:auto; margin-right:auto; }
+footer { background:#000; text-align:center; padding:2em 1em; }
+/* Floating Contact Widget */
+.contact-widget { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; align-items:flex-end; z-index:999; }
+.contact-btn { background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; border:none; border-radius:50%; width:60px; height:60px; font-size:28px; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.4); }
+.contact-links { display:none; flex-direction:column; margin-bottom:10px; align-items:flex-end; }
+.contact-links a { margin:5px 0; text-decoration:none; background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; padding:10px 15px; border-radius:8px; font-family:'Poppins',sans-serif; font-weight:bold; transition:background 0.3s; }
+.contact-links a:hover { background:linear-gradient(135deg,#004e92,#000428); }
+</style>
 </head>
 <body>
-  <header>
-    <h1>QUONTAM.NET</h1>
-    <p class="wide-latin">WAYNEio.Inc-LAN</p>
-  </header>
-  <nav>
-    <ul>
-      <li><a onclick="showSection('home')">Home</a></li>
-      <li><a onclick="showSection('about')">About Us</a></li>
-      <li><a onclick="showSection('services')">Services</a></li>
-      <li><a onclick="showSection('projects')">Projects</a></li>
-      <li><a onclick="showSection('news')">News</a></li>
-      <li><a onclick="showSection('team')">Team</a></li>
-      <li><a onclick="showSection('testimonials')">Testimonials</a></li>
-      <li><a onclick="showSection('faq')">FAQ</a></li>
-      <li><a onclick="showSection('contact')">Contact</a></li>
-    </ul>
-  </nav>
-
-  <section id="home" class="active">
-    <h2>Welcome to QUONTAM.NET</h2>
-    <p>Your trusted partner in networking and hotspot business solutions.</p>
-    <a class="btn" onclick="showSection('about')">Read the Decree</a>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <p>By decree of the Mad King CEO, QUONTAM.NET was forged not just as a company, but as a movement. A vision where connectivity isn’t a privilege, but a right.</p>
-    <p>From humble beginnings with Wi-Fi hotspots, QUONTAM has risen into a banner of innovation, building networks that empower communities, businesses, and dreamers alike.</p>
-    <p>Our mission: To conquer disconnection, to crown every home, street, and enterprise with limitless access to the digital kingdom.</p>
-    <p><strong>QUONTAM SHALL RISE. QUONTAM SHALL CONQUER.</strong></p>
-  </section>
-
-  <section id="services">
-    <h2>Services</h2>
-    <table class="pricing-table">
-      <tr><th>Plan</th><th>Duration</th><th>Price (KES)</th></tr>
-      <tr><td>Bronze</td><td>1 hour</td><td>10</td></tr>
-      <tr><td>Silver</td><td>3 hours</td><td>20</td></tr>
-      <tr><td>Gold</td><td>24 hours</td><td>100</td></tr>
-      <tr><td>Diamond</td><td>7 days</td><td>500</td></tr>
-      <tr><td>Platinum</td><td>Monthly</td><td>1,200</td></tr>
-      <tr><td>Starter Plan</td><td>One-time</td><td>2,500</td></tr>
-      <tr><td>Business Plan</td><td>One-time</td><td>6,000</td></tr>
-      <tr><td>Enterprise Plan</td><td>Contact Us</td><td>--</td></tr>
-    </table>
-  </section>
-
-  <section id="projects">
-    <h2>Our Projects</h2>
-    <p>Stay tuned for updates on major deployments, installations, and success stories.</p>
-  </section>
-
-  <section id="news">
-    <h2>Latest News</h2>
-    <p>Updates, launches, and press releases will appear here.</p>
-  </section>
-
-  <section id="team">
-    <h2>Meet the Team</h2>
-    <div class="team">
-      <div>
-        <img src="wayne-avatar.jpg" alt="Joseph Wayne">
-        <h3 class="wide-latin">JOSEPH WAYNE</h3>
-        <p>Founder / Team Lead</p>
-      </div>
-      <div>
-        <img src="cfo-avatar.jpg" alt="Alexa">
-        <h3 class="wide-latin">ALEXA</h3>
-        <p>Chief Financial Officer</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials">
-    <h2>Testimonials</h2>
-    <div class="review-box">
-      <textarea id="reviewText" placeholder="Write your review..."></textarea>
-      <div class="stars" id="stars">
-        <span data-star="1">★</span>
-        <span data-star="2">★</span>
-        <span data-star="3">★</span>
-        <span data-star="4">★</span>
-        <span data-star="5">★</span>
-      </div>
-      <button class="btn" onclick="submitReview()">Submit</button>
-      <div class="reviews-list" id="reviewsList"></div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <h2>FAQs</h2>
-    <p>Find answers to common questions here.</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Phone: +254784400105<br>Email: wayneio.inc@gmail.com</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 QUONTAM.NET - Powered by WAYNEio Inc. All rights reserved.</p>
-  </footer>
-
-  <script>
-    let currentSection = 'home';
-    function showSection(id) {
-      const section = document.getElementById(id);
-      if (currentSection === id) {
-        section.classList.toggle('active');
-      } else {
-        document.getElementById(currentSection)?.classList.remove('active');
-        section.classList.add('active');
-        currentSection = id;
-      }
-    }
-
-    // Reviews logic with localStorage
-    const stars = document.querySelectorAll('#stars span');
-    let selectedRating = 0;
-
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        selectedRating = star.getAttribute('data-star');
-        stars.forEach(s => s.classList.remove('active'));
-        for (let i = 0; i < selectedRating; i++) {
-          stars[i].classList.add('active');
-        }
-      });
-    });
-
-    function submitReview() {
-      const text = document.getElementById('reviewText').value.trim();
-      if (!text || selectedRating === 0) return;
-      const review = { text, rating: selectedRating };
-      let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-      reviews.push(review);
-      localStorage.setItem('reviews', JSON.stringify(reviews));
-      document.getElementById('reviewText').value = '';
-      selectedRating = 0;
-      stars.forEach(s => s.classList.remove('active'));
-      displayReviews();
-    }
-
-    function displayReviews() {
-      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-      const list = document.getElementById('reviewsList');
-      list.innerHTML = '';
-      reviews.forEach(r => {
-        const div = document.createElement('div');
-        div.classList.add('review-item');
-        div.innerHTML = `<p>${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</p><p>${r.text}</p>`;
-        list.appendChild(div);
-      });
-    }
-    displayReviews();
-  </script>
+<header>
+<h1 style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">QUONTAM.NET</h1>
+<p style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">WAYNEIo.Inc-LAN</p>
+</header>
+<nav>
+<ul>
+<li><a onclick="showSection('home')">Home</a></li>
+<li><a onclick="showSection('about')">About Us</a></li>
+<li><a onclick="showSection('services')">Services</a></li>
+<li><a onclick="showSection('projects')">Projects</a></li>
+<li><a onclick="showSection('news')">News</a></li>
+<li><a onclick="showSection('team')">Team</a></li>
+<li><a onclick="showSection('testimonials')">Testimonials</a></li>
+<li><a onclick="showSection('faq')">FAQ</a></li>
+<li><a onclick="showSection('contact')">Contact</a></li>
+</ul>
+</nav>
+<section id="home" class="active">
+<h2 style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">Welcome to QUONTAM.NET</h2>
+<p>Your trusted partner in networking and hotspot business solutions.</p>
+<a class="btn" onclick="showSection('about')">Read the Decree</a>
+</section>
+<section id="about">
+<h2>About Us</h2>
+<p>By decree of the Mad King CEO, QUONTAM.NET was forged not just as a company, but as a movement. Connectivity isn’t a privilege, it’s a right.</p>
+<p>From humble beginnings with Wi-Fi hotspots, QUONTAM has risen to empower communities, businesses, and dreamers alike.</p>
+<p>Our mission: To conquer disconnection and crown every home and enterprise with limitless access.</p>
+<p><strong>QUONTAM SHALL RISE. QUONTAM SHALL CONQUER.</strong></p>
+</section>
+<section id="services">
+<h2>Services</h2>
+<table>
+<tr><th>Plan</th><th>Duration</th><th>Price (KES)</th></tr>
+<tr><td>Bronze</td><td>1 hour</td><td>10</td></tr>
+<tr><td>Silver</td><td>3 hours</td><td>20</td></tr>
+<tr><td>Gold</td><td>24 hours</td><td>100</td></tr>
+<tr><td>Diamond</td><td>7 days</td><td>500</td></tr>
+<tr><td>Platinum</td><td>Monthly</td><td>1,200</td></tr>
+</table>
+</section>
+<section id="projects"><h2>Projects</h2><p>Our latest projects will appear here.</p></section>
+<section id="news"><h2>News</h2><p>Stay updated with the latest news.</p></section>
+<section id="faq"><h2>FAQ</h2><p>Frequently asked questions will be listed here.</p></section>
+<section id="team">
+<h2>Meet the Team</h2>
+<div class="team">
+<div><img src="wayne-avatar.jpg" alt="Joseph Wayne"><h3>JOSEPH WAYNE</h3><p>Founder / Team Lead</p></div>
+<div><img src="cfo-avatar.jpg" alt="Alexa"><h3>ALEXA</h3><p>Chief Financial Officer</p></div>
+</div>
+</section>
+<section id="testimonials">
+<h2>Testimonials</h2>
+<div class="review-box">
+<input type="text" id="reviewName" placeholder="Your Name">
+<textarea id="reviewText" placeholder="Write your review..."></textarea>
+<div class="stars" id="stars">
+<span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
+</div>
+<button class="btn" onclick="submitReview()">Submit</button>
+<div class="reviews-list" id="reviewsList"></div>
+</div>
+</section>
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Phone: +254784400105<br>Email: wayneio.inc@gmail.com</p>
+</section>
+<footer>
+<p>&copy; 2025 QUONTAM.NET - Powered by WAYNEio Inc. All rights reserved.</p>
+</footer>
+<div class="contact-widget">
+<div class="contact-links" id="contactLinks">
+<a href="tel:+254784400105">📞 Call</a>
+<a href="https://wa.me/254784400105" target="_blank">💬 WhatsApp</a>
+<a href="mailto:wayneio.inc@gmail.com">✉️ Email</a>
+</div>
+<button class="contact-btn" onclick="toggleContacts()">☰</button>
+</div>
+<script>
+let currentSection='home';
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');currentSection=id;}
+function toggleContacts(){const links=document.getElementById('contactLinks');if(!links)return;links.style.display=links.style.display==='flex'?'none':'flex';}
+const stars=document.querySelectorAll('#stars span');
+let selectedRating=0;
+stars.forEach(star=>{star.addEventListener('click',()=>{selectedRating=parseInt(star.getAttribute('data-star'));stars.forEach(s=>s.classList.remove('active'));for(let i=0;i<selectedRating;i++){stars[i].classList.add('active');}});});
+function submitReview(){const name=document.getElementById('reviewName').value.trim();const text=document.getElementById('reviewText').value.trim();if(!name||!text||selectedRating===0)return;let reviews=JSON.parse(localStorage.getItem('reviews'))||[];reviews.push({name,text,rating:selectedRating});localStorage.setItem('reviews',JSON.stringify(reviews));document.getElementById('reviewName').value='';document.getElementById('reviewText').value='';selectedRating=0;stars.forEach(s=>s.classList.remove('active'));displayReviews();}
+function displayReviews(){const reviews=JSON.parse(localStorage.getItem('reviews'))||[];const list=document.getElementById('reviewsList');list.innerHTML='';reviews.forEach(r=>{const div=document.createElement('div');div.innerHTML=`<p><strong>${r.name}</strong></p><p>${r.text}</p><p>${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</p>`;list.appendChild(div);});}
+displayReviews();
+</script>
 </body>
 </html>
