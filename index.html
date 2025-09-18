@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUONTAM.NET - WAYNEio Inc.</title>
+<title>QUONTAM.NET - Canvas Preview</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins&display=swap" rel="stylesheet">
 <style>
 body { margin:0; font-family:'Roboto',sans-serif; background:linear-gradient(135deg,#000428,#004e92); color:white; }
 header { text-align:center; padding:2em; background:rgba(0,0,0,0.85); }
-header h1, header p { color:#00FFFF; font-family:'Wide Latin',sans-serif; margin:0; }
-header h1 { font-size:2em; }
-header p { font-size:1.2em; }
+header h1, header p { color:#00FFFF; font-family:'Poppins',sans-serif; margin:0; }
+header h1 { font-size:2em; font-family:'Wide Latin',sans-serif; }
+header p { font-size:1.2em; font-family:'Wide Latin',sans-serif; }
 nav ul { display:flex; justify-content:center; list-style:none; padding:0; margin:0; flex-wrap:wrap; background:#000; }
 nav ul li { margin:0.5em 1em; }
 nav ul li a { color:#00FFFF; text-decoration:none; font-weight:bold; cursor:pointer; font-family:'Poppins',sans-serif; }
@@ -19,29 +19,37 @@ section { display:none; padding:2em 1em; background:rgba(0,0,0,0.65); margin:1em
 section.active { display:block; }
 .btn { display:inline-block; margin-top:1em; padding:0.8em 1.2em; background:#00FFFF; color:#000; border-radius:8px; font-weight:bold; cursor:pointer; }
 .btn:hover { background:#00cccc; }
-table { width:100%; border-collapse:collapse; margin-top:1.5em; }
-th, td { border:1px solid #00FFFF; padding:10px; font-family:'Poppins',sans-serif; font-size:0.9em; }
-th { background-color:#001f3f; color:#fff; }
 .team { display:flex; justify-content:center; gap:2em; flex-wrap:wrap; }
 .team img { width:120px; border-radius:50%; border:3px solid #00FFFF; }
-.review-box input, .review-box textarea { width:90%; max-width:400px; margin-bottom:0.5em; padding:0.5em; border-radius:8px; }
+.pricing-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 900px; margin: auto; }
+.plan { background: linear-gradient(135deg,#000428,#004e92); border: 2px solid #00FFFF; border-radius: 15px; padding: 20px; box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.3) inset; transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; }
+.plan:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 0 35px rgba(0, 255, 255, 0.5) inset; border: 2px solid #00FFFF; }
+.plan h2 { margin: 0 0 15px; font-size: 1.4rem; color: #00FFFF; }
+.price { font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
+.best-value { border: 3px solid gold; box-shadow: 0px 0px 25px gold, 0 0 40px rgba(255, 215, 0, 0.3) inset; }
+.best-value h2 { color: gold; }
 .stars { display:flex; gap:0.2em; justify-content:center; margin-bottom:0.5em; }
 .stars span { font-size:1.5em; cursor:pointer; color:#ccc; }
 .stars span.active { color:gold; }
 .reviews-list { margin-top:1em; text-align:left; max-width:600px; margin-left:auto; margin-right:auto; }
+.review-box { display:flex; flex-direction:column; align-items:center; gap:1em; }
 footer { background:#000; text-align:center; padding:2em 1em; }
-/* Floating Contact Widget */
 .contact-widget { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; align-items:flex-end; z-index:999; }
 .contact-btn { background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; border:none; border-radius:50%; width:60px; height:60px; font-size:28px; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.4); }
 .contact-links { display:none; flex-direction:column; margin-bottom:10px; align-items:flex-end; }
 .contact-links a { margin:5px 0; text-decoration:none; background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; padding:10px 15px; border-radius:8px; font-family:'Poppins',sans-serif; font-weight:bold; transition:background 0.3s; }
 .contact-links a:hover { background:linear-gradient(135deg,#004e92,#000428); }
+@media(max-width:600px) {
+  .contact-widget { bottom:10px; right:10px; }
+  .contact-btn { width:50px; height:50px; font-size:24px; }
+  .contact-links a { padding:8px 12px; font-size:0.9em; }
+}
 </style>
 </head>
 <body>
 <header>
-<h1 style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">QUONTAM.NET</h1>
-<p style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">WAYNEIo.Inc-LAN</p>
+<h1>QUONTAM.NET</h1>
+<p>WAYNEIo.Inc-LAN</p>
 </header>
 <nav>
 <ul>
@@ -57,7 +65,7 @@ footer { background:#000; text-align:center; padding:2em 1em; }
 </ul>
 </nav>
 <section id="home" class="active">
-<h2 style="font-family:'Wide Latin',sans-serif; color:#00FFFF;">Welcome to QUONTAM.NET</h2>
+<h2>Welcome to QUONTAM.NET</h2>
 <p>Your trusted partner in networking and hotspot business solutions.</p>
 <a class="btn" onclick="showSection('about')">Read the Decree</a>
 </section>
@@ -70,14 +78,20 @@ footer { background:#000; text-align:center; padding:2em 1em; }
 </section>
 <section id="services">
 <h2>Services</h2>
-<table>
-<tr><th>Plan</th><th>Duration</th><th>Price (KES)</th></tr>
-<tr><td>Bronze</td><td>1 hour</td><td>10</td></tr>
-<tr><td>Silver</td><td>3 hours</td><td>20</td></tr>
-<tr><td>Gold</td><td>24 hours</td><td>100</td></tr>
-<tr><td>Diamond</td><td>7 days</td><td>500</td></tr>
-<tr><td>Platinum</td><td>Monthly</td><td>1,200</td></tr>
-</table>
+<div class="pricing-table">
+<div class="plan"><h2>Quick Browse</h2><div class="price">KES 5 / 30 min</div></div>
+<div class="plan"><h2>Chill Hour</h2><div class="price">KES 10 / 1 hr</div></div>
+<div class="plan best-value"><h2>Mini Surf</h2><div class="price">KES 15 / 2 hrs</div></div>
+<div class="plan"><h2>Half-Day Hustle</h2><div class="price">KES 50 / 12 hrs</div></div>
+<div class="plan"><h2>Full-Day Flex</h2><div class="price">KES 100 / 24 hrs</div></div>
+<div class="plan"><h2>Weekend Pass</h2><div class="price">KES 200 / Sat - Sun</div></div>
+<div class="plan"><h2>Weekly Warrior</h2><div class="price">KES 250 / 7 days</div></div>
+<div class="plan"><h2>Monthly Boss</h2><div class="price">KES 900 / 30 days</div></div>
+<div class="plan"><h2>TV</h2><div class="price">KES 1000 / Monthly</div></div>
+<div class="plan"><h2>Starter Pack</h2><div class="price">KES 1200 / One-time</div></div>
+<div class="plan"><h2>Business</h2><div class="price">KES 6000 / One-time</div></div>
+<div class="plan"><h2>Enterprise</h2><div class="price">Custom / Contact Us</div></div>
+</div>
 </section>
 <section id="projects"><h2>Projects</h2><p>Our latest projects will appear here.</p></section>
 <section id="news"><h2>News</h2><p>Stay updated with the latest news.</p></section>
@@ -92,13 +106,12 @@ footer { background:#000; text-align:center; padding:2em 1em; }
 <section id="testimonials">
 <h2>Testimonials</h2>
 <div class="review-box">
-<input type="text" id="reviewName" placeholder="Your Name">
-<textarea id="reviewText" placeholder="Write your review..."></textarea>
-<div class="stars" id="stars">
-<span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
+<input type="text" placeholder="Your Name">
+<textarea placeholder="Write your review..."></textarea>
+<div class="stars">
+<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 </div>
-<button class="btn" onclick="submitReview()">Submit</button>
-<div class="reviews-list" id="reviewsList"></div>
+<button class="btn" onclick="alert('Testimonial submitted (mock)')">Submit</button>
 </div>
 </section>
 <section id="contact">
@@ -109,23 +122,16 @@ footer { background:#000; text-align:center; padding:2em 1em; }
 <p>&copy; 2025 QUONTAM.NET - Powered by WAYNEio Inc. All rights reserved.</p>
 </footer>
 <div class="contact-widget">
-<div class="contact-links" id="contactLinks">
-<a href="tel:+254784400105">📞 Call</a>
-<a href="https://wa.me/254784400105" target="_blank">💬 WhatsApp</a>
-<a href="mailto:wayneio.inc@gmail.com">✉️ Email</a>
+<div class="contact-links">
+<a href="#">📞 Call</a>
+<a href="#">💬 WhatsApp</a>
+<a href="#">✉️ Email</a>
 </div>
 <button class="contact-btn" onclick="toggleContacts()">☰</button>
 </div>
 <script>
-let currentSection='home';
-function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');currentSection=id;}
-function toggleContacts(){const links=document.getElementById('contactLinks');if(!links)return;links.style.display=links.style.display==='flex'?'none':'flex';}
-const stars=document.querySelectorAll('#stars span');
-let selectedRating=0;
-stars.forEach(star=>{star.addEventListener('click',()=>{selectedRating=parseInt(star.getAttribute('data-star'));stars.forEach(s=>s.classList.remove('active'));for(let i=0;i<selectedRating;i++){stars[i].classList.add('active');}});});
-function submitReview(){const name=document.getElementById('reviewName').value.trim();const text=document.getElementById('reviewText').value.trim();if(!name||!text||selectedRating===0)return;let reviews=JSON.parse(localStorage.getItem('reviews'))||[];reviews.push({name,text,rating:selectedRating});localStorage.setItem('reviews',JSON.stringify(reviews));document.getElementById('reviewName').value='';document.getElementById('reviewText').value='';selectedRating=0;stars.forEach(s=>s.classList.remove('active'));displayReviews();}
-function displayReviews(){const reviews=JSON.parse(localStorage.getItem('reviews'))||[];const list=document.getElementById('reviewsList');list.innerHTML='';reviews.forEach(r=>{const div=document.createElement('div');div.innerHTML=`<p><strong>${r.name}</strong></p><p>${r.text}</p><p>${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</p>`;list.appendChild(div);});}
-displayReviews();
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function toggleContacts(){const links=document.querySelector('.contact-links');if(links.style.display==='flex'){links.style.display='none';}else{links.style.display='flex';}}
 </script>
 </body>
 </html>
