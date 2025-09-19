@@ -20,7 +20,8 @@ section.active { display:block; }
 .btn { display:inline-block; margin-top:1em; padding:0.8em 1.2em; background:#00FFFF; color:#000; border-radius:8px; font-weight:bold; cursor:pointer; }
 .btn:hover { background:#00cccc; }
 .team { display:flex; justify-content:center; gap:2em; flex-wrap:wrap; }
-.team img { width:120px; border-radius:50%; border:3px solid #00FFFF; }
+.team div { display:flex; flex-direction:column; align-items:center; gap:0.5em; }
+.team img { width:120px; height:120px; border-radius:50%; border:3px solid #00FFFF; object-fit:cover; }
 .pricing-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 900px; margin: auto; }
 .plan { background: linear-gradient(135deg,#000428,#004e92); border: 2px solid #00FFFF; border-radius: 15px; padding: 20px; box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.3) inset; transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; }
 .plan:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 0 35px rgba(0, 255, 255, 0.5) inset; border: 2px solid #00FFFF; }
@@ -28,21 +29,24 @@ section.active { display:block; }
 .price { font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
 .best-value { border: 3px solid gold; box-shadow: 0px 0px 25px gold, 0 0 40px rgba(255, 215, 0, 0.3) inset; }
 .best-value h2 { color: gold; }
-.stars { display:flex; gap:0.2em; justify-content:center; margin-bottom:0.5em; }
+.best-value:hover { box-shadow: 0 0 35px gold, 0 0 50px rgba(255, 215, 0, 0.5) inset; border: 3px solid gold; }
+.stars { display:flex; flex-direction:row; gap:0.5em; justify-content:center; margin-bottom:0.5em; }
 .stars span { font-size:1.5em; cursor:pointer; color:#ccc; }
 .stars span.active { color:gold; }
 .reviews-list { margin-top:1em; text-align:left; max-width:600px; margin-left:auto; margin-right:auto; }
 .review-box { display:flex; flex-direction:column; align-items:center; gap:1em; }
 footer { background:#000; text-align:center; padding:2em 1em; }
 .contact-widget { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; align-items:flex-end; z-index:999; }
-.contact-btn { background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; border:none; border-radius:50%; width:60px; height:60px; font-size:28px; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.4); }
-.contact-links { display:none; flex-direction:column; margin-bottom:10px; align-items:flex-end; }
-.contact-links a { margin:5px 0; text-decoration:none; background:linear-gradient(135deg,#000428,#004e92); color:#00FFFF; padding:10px 15px; border-radius:8px; font-family:'Poppins',sans-serif; font-weight:bold; transition:background 0.3s; }
+.contact-btn { background: linear-gradient(135deg,#000428,#004e92); color:#00FFFF; border:none; border-radius:50%; width:60px; height:60px; font-size:28px; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.4); }
+.contact-links { display:flex; flex-direction:column; margin-bottom:10px; align-items:flex-end; }
+.contact-links a { margin:5px 0; text-decoration:none; background: linear-gradient(135deg,#000428,#004e92); color:#00FFFF; padding:10px 15px; border-radius:8px; font-family:'Poppins',sans-serif; font-weight:bold; transition:background 0.3s, border 0.3s; }
 .contact-links a:hover { background:linear-gradient(135deg,#004e92,#000428); }
 @media(max-width:600px) {
   .contact-widget { bottom:10px; right:10px; }
   .contact-btn { width:50px; height:50px; font-size:24px; }
   .contact-links a { padding:8px 12px; font-size:0.9em; }
+  .team { flex-direction:column; align-items:center; }
+  .pricing-table { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -123,15 +127,16 @@ footer { background:#000; text-align:center; padding:2em 1em; }
 </footer>
 <div class="contact-widget">
 <div class="contact-links">
-<a href="#">📞 Call</a>
-<a href="#">💬 WhatsApp</a>
-<a href="#">✉️ Email</a>
+<a href="tel:+254784400105">📞 Call</a>
+<a href="https://wa.me/254784400105" target="_blank">💬 WhatsApp</a>
+<a href="mailto:wayneio.inc@gmail.com">✉️ Email</a>
 </div>
 <button class="contact-btn" onclick="toggleContacts()">☰</button>
 </div>
 <script>
-function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function toggleContacts(){const links=document.querySelector('.contact-links');if(links.style.display==='flex'){links.style.display='none';}else{links.style.display='flex';}}
+let currentSection='home';
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');currentSection=id;}
+function toggleContacts(){const links=document.querySelector('.contact-links');links.style.display=links.style.display==='flex'?'none':'flex';}
 </script>
 </body>
 </html>
