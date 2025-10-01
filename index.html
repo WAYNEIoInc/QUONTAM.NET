@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUONTAM.NET - Canvas Preview</title>
+<link rel="icon" href="/favicon.ico">
+<meta name="description" content="QUONTAM.NET — Connectivity for communities and businesses. Hotspot & networking solutions by WAYNEio Inc.">
+<meta name="theme-color" content="#001f3f">
+<!-- Open Graph / Social -->
+<meta property="og:title" content="QUONTAM.NET - WAYNEio Inc.">
+<meta property="og:description" content="Connectivity isn't a privilege—it's a right. Hotspot & networking solutions by WAYNEio.">
+<meta property="og:image" content="/mnt/data/IMG_20231218_181919.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QUONTAM.NET - WAYNEio Inc.">
+<meta name="twitter:description" content="Connectivity isn't a privilege—it's a right. Hotspot & networking solutions by WAYNEio.">
+<meta name="twitter:image" content="/mnt/data/IMG_20231218_181919.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/mnt/data/IMG_20231218_181919-640.webp">
+<link rel="preload" as="image" href="/mnt/data/807aa92c-8a01-4316-b0c3-9ca23bb49784-640.webp">
+<style>
+  :root{--accent:#00FFFF;--gold:#d4af37;--bg-offset:0px}
+  html,body{height:100%;}
+  body { margin:0; font-family:'Roboto',sans-serif; background:linear-gradient(135deg,#000428,#004e92); color:white; --bg-offset:0px; }
+  /* apply subtle parallax by shifting background position using a CSS variable */
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(135deg,#000428,#004e92);background-position:center calc(50% + var(--bg-offset));filter:blur(0px);transform:translateZ(0);} 
+  header { text-align:center; padding:2em; background:rgba(0,0,0,0.55); }
+  header h1, header p { color:var(--accent); font-family:'Poppins',sans-serif; margin:0; }
+  header h1 { font-size:2em; font-family:'Wide Latin',sans-serif; }
+  header p { font-size:1.2em; font-family:'Wide Latin',sans-serif; }
+  nav ul { display:flex; justify-content:center; list-style:none; padding:0; margin:0; flex-wrap:wrap; background:rgba(0,0,0,0.6); }
+  nav ul li { margin:0.5em 1em; }
+  nav ul li a { color:var(--accent); text-decoration:none; font-weight:bold; cursor:pointer; font-family:'Poppins',sans-serif; position:relative; padding-bottom:6px; }
+  /* neon-cyan underline animation */
+  nav ul li a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),#00e6ff);transition:width .28s cubic-bezier(.2,.9,.2,1);} 
+  nav ul li a:hover::after{width:100%;}
+  section { display:none; padding:2em 1em; background:rgba(0,0,0,0.65); margin:1em auto; border-radius:12px; max-width:900px; text-align:center; }
+  section.active { display:block; }
+  /* reveal animation for headings */
+  h2{outline:none}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.show{opacity:1;transform:translateY(0)}
+  .btn { display:inline-block; margin-top:1em; padding:0.8em 1.2em; background:var(--accent); color:#000; border-radius:8px; font-weight:bold; cursor:pointer; border:1px solid rgba(0,0,0,0.12); box-shadow:0 6px 18px rgba(0,255,255,0.04); }
+  /* diagonal gold glow on hover */
+  .btn::before{content:'';position:absolute;pointer-events:none;}
+  .btn:hover{box-shadow:0 8px 30px rgba(212,175,55,0.12), 0 0 8px rgba(0,255,255,0.06);}
+  .btn.gold-glow:hover{box-shadow:0 10px 40px rgba(212,175,55,0.18), inset 0 0 30px rgba(212,175,55,0.04);}
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; justify-items: center; align-items: start; max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+  /* flip-card styles for team members */
+  .team-member{width:clamp(180px,22vw,260px); perspective:1000px; max-width:100%;}
+  .card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.9,.3,1);cursor:pointer;background:transparent;border:none;padding:0} 
+  .card-inner:focus{outline:none;}
+  .card-inner:focus-visible{outline:4px solid var(--gold);box-shadow:0 6px 24px rgba(212,175,55,0.18);border-radius:12px}
+  .card-front,.card-back{position:relative;backface-visibility:hidden;transform-style:preserve-3d;padding:12px;border-radius:12px;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%} .card-front{background:linear-gradient(135deg,#000428,#004e92);border:2px solid rgba(0,255,255,0.06)} .card-back{background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.45));transform:rotateY(180deg);text-align:center;border:2px solid rgba(0,0,0,0.08)}
+  .card-front{background:linear-gradient(135deg,rgba(0,0,0,0.45),rgba(0,0,0,0.25));}
+  .card-back{background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.45));transform:rotateY(180deg);text-align:center}
+  .card-inner.is-flipped{transform:rotateY(180deg)}
+  .card-back .bio{font-style:italic;margin:8px 0;color:#eee}
+  .card-back .details{font-size:0.9rem;color:#cfe}
+  .btn.small{padding:0.5em 0.8em;font-size:0.85rem;border-radius:6px}
+  .team-member .card-front h3,.team-member .card-back h3{margin:10px 0 6px}
+  .team-member .role{color:#9fe7ff;font-weight:600;margin:0}
+  .pricing-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 900px; margin: auto; }
+  .plan { background: linear-gradient(135deg,#000428,#004e92); border: 2px solid var(--accent); border-radius: 15px; padding: 20px; box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.6); transition: transform 0.35s ease, box-shadow 0.35s ease, background-position 0.7s ease; background-size:200% 200%; background-position:left center; }
+  .plan:hover { transform: scale(1.02); box-shadow: 0 18px 40px rgba(0,0,0,0.6), 0 6px 30px rgba(0,255,255,0.06); background-position:right center; border: 2px solid var(--accent); }
+  .plan h2 { margin: 0 0 15px; font-size: 1.4rem; color: var(--accent); }
+  .price { font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
+  .best-value { border: 3px solid var(--gold); box-shadow: 0px 0px 25px rgba(212,175,55,0.12), inset 0 0 40px rgba(255, 215, 0, 0.06); }
+  .best-value h2 { color: var(--gold); }
+  .best-value:hover { box-shadow: 0 0 35px rgba(212,175,55,0.16), inset 0 0 50px rgba(255, 215, 0, 0.08); border: 3px solid var(--gold); }
+  .stars { display:flex; flex-direction:row; gap:0.5em; justify-content:center; margin-bottom:0.5em; }
+  .stars span { font-size:1.5em; cursor:pointer; color:#ccc; }
+  .stars span.active { color:var(--gold); }
+  /* testimonial cards: rounded + soft shadow; responsive carousel on mobile */
+  .reviews-list{margin-top:1em; max-width:100%;}
+  .reviews-list .review-card{background:rgba(255,255,255,0.03); border-radius:12px; padding:12px; margin:8px; min-width:260px; box-shadow:0 6px 18px rgba(0,0,0,0.5);}
+  .reviews-wrapper{display:flex; gap:12px; align-items:stretch;}
+  @media(max-width:760px){
+    .reviews-wrapper{overflow-x:auto; padding-bottom:8px;}
+    .reviews-wrapper .review-card{flex:0 0 auto}
+  }
+  .review-box { display:flex; flex-direction:column; align-items:center; gap:1em; }
+  footer { background:#000; text-align:center; padding:2em 1em; }
+  /* Contact widget — keep original untouched */
+  .contact-widget { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; align-items:flex-end; z-index:999; }
+  .contact-btn { background: linear-gradient(135deg,#000428,#004e92); color:var(--accent); border:none; border-radius:50%; width:60px; height:60px; font-size:28px; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.4); }
+  .contact-links { display:none; flex-direction:column; margin-bottom:10px; align-items:flex-end; }
+  .contact-links a { margin:5px 0; text-decoration:none; background: linear-gradient(135deg,#000428,#004e92); color:var(--accent); padding:10px 15px; border-radius:8px; font-family:'Poppins',sans-serif; font-weight:bold; transition:background 0.3s, border 0.3s; }
+  .contact-links a:hover { background:linear-gradient(135deg,#004e92,#000428); }
+  /* toast */
+  .sr-only-focusable:focus{position:static;width:auto;height:auto;padding:8px 12px;margin:8px;border-radius:6px;background:rgba(0,0,0,0.6);color:var(--accent);clip:auto;overflow:visible}
+  .contact-btn:focus-visible{outline:3px solid var(--accent);box-shadow:0 6px 18px rgba(0,255,255,0.08)}
+  /* mobile nav button & responsive nav */
+  .mobile-nav-btn{display:none;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--accent);padding:8px 10px;border-radius:8px;font-size:20px;cursor:pointer}
+  #mainNav ul{display:flex;gap:0.5rem;align-items:center}
+  #mainNav.open ul{display:flex;flex-direction:column;background:rgba(0,0,0,0.6);padding:10px;border-radius:8px}
+  @media(max-width:760px){
+    .mobile-nav-btn{display:block}
+    #mainNav ul{display:none}
+  }
+  .btn:focus-visible{outline:3px solid var(--accent);box-shadow:0 6px 18px rgba(0,255,255,0.06)}
+  .toast{position:fixed;right:18px;bottom:90px;background:linear-gradient(135deg,rgba(0,0,0,0.85),rgba(0,0,0,0.65));color:var(--accent);border:1px solid var(--gold);padding:10px 14px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.6);opacity:0;transform:translateY(10px);transition:opacity .35s ease, transform .35s ease;display:flex;gap:8px;align-items:center}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .toast .ok{background:var(--gold);color:#000;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+  /* accessibility helper */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  /* decree styling */
+  .decree{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(212,175,55,0.12);padding:18px;border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 30px rgba(0,0,0,0.6);backdrop-filter:blur(2px)}
+  .decree-header{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+  .decree .crown{filter:drop-shadow(0 2px 6px rgba(212,175,55,0.25));}
+  .decree-title{font-weight:800;color:var(--gold);letter-spacing:0.6px}
+  .divider{height:2px;width:80%;margin:8px auto;background:linear-gradient(90deg,rgba(212,175,55,0.25),rgba(255,255,255,0.05),rgba(212,175,55,0.25));border-radius:2px}
+  .decree-body{color:#eafcff;text-align:center;padding:10px 6px}
+  .decree .lead{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+  .decree .mission{margin-top:10px;font-weight:600}
+  .decree .call{font-style:italic;margin-top:10px}
+  .decree .rally{margin-top:12px;font-weight:900;color:var(--gold);letter-spacing:1px}
+  .decree .seal{margin-top:10px;color:#cfd8e0;font-size:0.95rem}
+  @media (max-width:600px){.decree{padding:12px}.decree .lead{font-size:1rem}.divider{width:95%}}
+
+  /* ensure card text is visible and above image */
+  .card-front h3, .team-member .card-front h3 { color: #eafcff; text-shadow: 0 1px 4px rgba(0,0,0,0.6); margin-top:8px; }
+  .team-member .role{color:#9fe7ff;}
+  .card-front img{display:block;margin:0 auto 12px;width:clamp(80px,12vw,120px);height:auto}
+  .card-front *{position:relative;z-index:2}
+  .card-front::after{content:'';position:absolute;inset:0;border-radius:12px;box-shadow:inset 0 0 0 2000px rgba(0,0,0,0.12);pointer-events:none}
+
+  @media(max-width:900px){header{padding:1.2em}}
+  @media(max-width:600px){
+    .contact-widget{bottom:10px;right:10px}
+    .contact-btn{width:50px;height:50px;font-size:24px}
+  }
+</style>
+</head>
+<body>
+<a class="sr-only sr-only-focusable" href="#maincontent">Skip to main content</a>
+<header>
+  <h1>QUONTAM.NET</h1>
+  <p>WAYNEIo.Inc-LAN</p>
+</header>
+<nav>
+  <button id="mobileNavToggle" class="mobile-nav-btn sr-only" aria-expanded="false" aria-controls="mainNav">☰</button>
+  <div id="mainNav">
+  <ul>
+    <li><a href="#" onclick="event.preventDefault(); showSection('home')" aria-label="Home">Home</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('about')" aria-label="About Us">About Us</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('services')" aria-label="Services">Services</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('projects')" aria-label="Projects">Projects</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('news')" aria-label="News">News</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('team')" aria-label="Team">Team</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('testimonials')" aria-label="Testimonials">Testimonials</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('faq')" aria-label="FAQ">FAQ</a></li>
+    <li><a href="#" onclick="event.preventDefault(); showSection('contact')" aria-label="Contact">Contact</a></li>
+  </ul>
+  </div>
+</nav>
+
+<main id="maincontent">
+<section id="home" class="active">
+  <h2 class="reveal" tabindex="-1">Welcome to QUONTAM.NET</h2>
+  <p>Your trusted partner in networking and hotspot business solutions.</p>
+  <a class="btn gold-glow" onclick="event.preventDefault(); showSection('about')" aria-label="Read the Decree">Read the Decree</a>
+</section>
+
+<section id="about">
+  <h2 class="reveal" tabindex="-1">About Us</h2>
+  <div class="decree reveal" role="region" aria-label="Quontam decree">
+    <div class="decree-header">
+      <svg class="crown" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" focusable="false"><path fill="none" stroke="url(#g)" stroke-width="2" d="M4 48 L12 20 L24 36 L32 14 L40 36 L52 20 L60 48 Z"></path><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#fff2cc" stop-opacity="1"/><stop offset="1" stop-color="#d4af37" stop-opacity="1"/></linearGradient></defs></svg>
+      <div class="decree-title">By decree of the Mad King CEO</div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="decree-body">
+      <p class="lead">QUONTAM.NET was forged not just as a company, but as a movement — a digital crown for the people.</p>
+      <p>Connectivity is no privilege. It is a right, a birthmark of freedom.</p>
+      <p>From humble sparks of Wi‑Fi in forgotten town corners, QUONTAM has risen to empower dreamers, families, and empires alike.</p>
+      <p class="mission"><strong>Our mission:</strong> to conquer disconnection, to crown every home and enterprise with limitless access.</p>
+      <p class="call">Join us. Stand with QUONTAM. Together we dethrone disconnection.</p>
+      <p class="rally">QUONTAM SHALL RISE. QUONTAM SHALL CONQUER.</p>
+      <p class="seal">Thus speaks the Mad King CEO. Thus it is written.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <h2 class="reveal" tabindex="-1">Services</h2>
+  <div class="pricing-table">
+    <div class="plan"><h2>Quick Browse</h2><div class="price">KES 5 / 30 min</div></div>
+    <div class="plan"><h2>Chill Hour</h2><div class="price">KES 10 / 1 hr</div></div>
+    <div class="plan best-value"><h2>Mini Surf</h2><div class="price">KES 15 / 2 hrs</div></div>
+    <div class="plan"><h2>Half-Day Hustle</h2><div class="price">KES 50 / 12 hrs</div></div>
+    <div class="plan"><h2>Full-Day Flex</h2><div class="price">KES 100 / 24 hrs</div></div>
+    <div class="plan"><h2>Weekend Pass</h2><div class="price">KES 200 / Sat - Sun</div></div>
+    <div class="plan"><h2>Weekly Warrior</h2><div class="price">KES 250 / 7 days</div></div>
+    <div class="plan"><h2>Monthly Boss</h2><div class="price">KES 900 / 30 days</div></div>
+    <div class="plan"><h2>TV</h2><div class="price">KES 1000 / Monthly</div></div>
+    <div class="plan"><h2>Starter Pack</h2><div class="price">KES 1200 / One-time</div></div>
+    <div class="plan"><h2>Business</h2><div class="price">KES 6000 / One-time</div></div>
+    <div class="plan"><h2>Enterprise</h2><div class="price">Custom / Contact Us</div></div>
+  </div>
+</section>
+
+<section id="projects"><h2 class="reveal" tabindex="-1">Projects</h2><p>Our latest projects will appear here.</p></section>
+<section id="news"><h2 class="reveal" tabindex="-1">News</h2><p>Stay updated with the latest news.</p></section>
+<section id="faq"><h2 class="reveal" tabindex="-1">FAQ</h2><p>Frequently asked questions will be listed here.</p></section>
+
+<section id="team">
+  <h2 class="reveal" tabindex="-1">Meet the Team</h2>
+  <!-- Clean, validated team grid to restore preview -->
+  <div class="team-grid" role="list">
+    <div class="team-member" role="listitem" aria-label="Joseph Wayne - Founder">
+      <div class="card-inner" role="button" aria-pressed="false" tabindex="0">
+        <div class="card-front">
+          <picture>
+            <source type="image/webp" srcset="/mnt/data/IMG_20231218_181919-320.webp 320w, /mnt/data/IMG_20231218_181919-640.webp 640w, /mnt/data/IMG_20231218_181919-1200.webp 1200w" sizes="(max-width:600px) 80px, (max-width:900px) 12vw, 120px">
+            <img loading="lazy" decoding="async" src="/mnt/data/IMG_20231218_181919.webp" alt="Joseph Wayne" width="120" height="120" style="width:clamp(80px,12vw,120px);aspect-ratio:1/1;border-radius:50%;object-fit:cover;border:3px solid var(--accent);">
+          </picture>
+          <h3>JOSEPH WAYNE</h3>
+          <p class="role">Founder / Team Lead</p>
+        </div>
+        <div class="card-back">
+          <h3>Joseph Wayne</h3>
+          <p class="bio">"Building Quontam.net on grit, vision, and fire. Loves strategy, hates shortcuts."</p>
+          <a class="btn small" href="#contact" onclick="event.preventDefault(); showSection('contact')" aria-label="Contact Joseph">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-member" role="listitem" aria-label="Alexa - CFO">
+      <div class="card-inner" role="button" aria-pressed="false" tabindex="0">
+        <div class="card-front">
+          <picture>
+            <source type="image/webp" srcset="/mnt/data/807aa92c-8a01-4316-b0c3-9ca23bb49784-320.webp 320w, /mnt/data/807aa92c-8a01-4316-b0c3-9ca23bb49784-640.webp 640w, /mnt/data/807aa92c-8a01-4316-b0c3-9ca23bb49784-1200.webp 1200w" sizes="(max-width:600px) 80px, (max-width:900px) 12vw, 120px">
+            <img loading="lazy" decoding="async" src="/mnt/data/807aa92c-8a01-4316-b0c3-9ca23bb49784.webp" alt="Alexa" width="120" height="120" style="width:clamp(80px,12vw,120px);aspect-ratio:1/1;border-radius:50%;object-fit:cover;border:3px solid var(--accent);">
+          </picture>
+          <h3>ALEXA</h3>
+          <p class="role">Chief Financial Officer</p>
+        </div>
+        <div class="card-back">
+          <h3>Alexa</h3>
+          <p class="bio">"Numbers whisperer. Turns chaos into clarity. Always gold where it counts."</p>
+          <a class="btn small" href="#contact" onclick="event.preventDefault(); showSection('contact')" aria-label="Contact Alexa">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2 class="reveal" tabindex="-1">Testimonials</h2>
+  <div class="review-box">
+    <label for="reviewName" class="sr-only">Your name</label>
+    <input type="text" id="reviewName" placeholder="Your Name" aria-label="Your name">
+    <label for="reviewText" class="sr-only">Your review</label>
+    <textarea id="reviewText" placeholder="Write your review..." aria-label="Your review"></textarea>
+    <div class="stars" id="stars" aria-label="Rating">
+      <span data-star="1" role="button" tabindex="0" aria-label="1 star">★</span><span data-star="2" role="button" tabindex="0" aria-label="2 stars">★</span><span data-star="3" role="button" tabindex="0" aria-label="3 stars">★</span><span data-star="4" role="button" tabindex="0" aria-label="4 stars">★</span><span data-star="5" role="button" tabindex="0" aria-label="5 stars">★</span>
+    </div>
+    <button class="btn" id="submitReview" aria-label="Submit review">Submit</button>
+    <div class="reviews-list" id="reviewsList" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="reveal" tabindex="-1">Contact Us</h2>
+  <p>Phone: +254784400105<br>Email: wayneio.inc@gmail.com</p>
+</section>
+</main>
+
+<footer>
+  <p>&copy; 2025 QUONTAM.NET - Powered by WAYNEio Inc. All rights reserved.</p>
+</footer>
+
+<!-- Contact widget (kept as original, untouched) -->
+<div class="contact-widget" aria-hidden="false">
+  <div id="contactLinks" class="contact-links" aria-hidden="true">
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="tel:+254784400105" data-copy="+254784400105" aria-label="Call">📞 Call</a>
+      <button class="copy-btn" data-copy="+254784400105" aria-label="Copy phone">Copy</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="https://wa.me/254784400105" target="_blank" data-copy="+254784400105" aria-label="WhatsApp">💬 WhatsApp</a>
+      <button class="copy-btn" data-copy="+254784400105" aria-label="Copy WhatsApp number">Copy</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="mailto:wayneio.inc@gmail.com" data-copy="wayneio.inc@gmail.com" aria-label="Email">✉️ Email</a>
+      <button class="copy-btn" data-copy="wayneio.inc@gmail.com" aria-label="Copy email">Copy</button>
+    </div>
+  </div>
+  <button class="contact-btn" onclick="toggleContacts()" aria-label="Toggle contact links" aria-expanded="false" aria-controls="contactLinks">☰</button>
+</div>
+
+<!-- toast container for copy confirmations (used if needed) -->
+<div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><span class="ok">✔</span><span id="toastText">Copied</span></div>
+
+<script>
+// small helper: safe query
+const $ = s => document.querySelector(s);
+
+// Parallax: update --bg-offset based on scroll, subtle and throttled via rAF
+let lastScroll = 0;
+function onScroll(){ lastScroll = window.scrollY; requestAnimationFrame(()=>{ document.documentElement.style.setProperty('--bg-offset', (lastScroll*0.03).toFixed(2)+'px'); }); }
+window.addEventListener('scroll', onScroll, {passive:true});
+
+// showSection: handles nav clicks (prevents ReferenceError)
+let currentSection = 'home';
+function showSection(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+  currentSection = id;
+  const h = el && el.querySelector('h2'); if(h) h.focus({preventScroll:true});
+}
+
+// Contact widget toggle (kept simple and original)
+function toggleContacts(){
+  const links = document.getElementById('contactLinks');
+  const btn = document.querySelector('.contact-btn');
+  if(!links || !btn) return;
+  const isOpen = links.style.display === 'flex';
+  if(isOpen){
+    links.style.display = 'none';
+    links.setAttribute('aria-hidden','true');
+    btn.setAttribute('aria-expanded','false');
+  } else {
+    links.style.display = 'flex';
+    links.setAttribute('aria-hidden','false');
+    btn.setAttribute('aria-expanded','true');
+  }
+}
+
+// Reveal headings when they enter the viewport
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(h=>io.observe(h));
+
+// Testimonials: star rating + localStorage + responsive carousel behavior
+(function(){
+  const starsContainer = document.getElementById('stars');
+  const stars = starsContainer ? Array.from(starsContainer.querySelectorAll('span')) : [];
+  let selectedRating = 0;
+  if(stars.length){
+    stars.forEach((s,idx)=>{
+      const set = i=>{ selectedRating = i+1; stars.forEach((st,j)=> st.classList.toggle('active', j<=i)); };
+      s.addEventListener('click', ()=> set(idx));
+      s.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(idx); }});
+    });
+  }
+
+  const submitBtn = document.getElementById('submitReview');
+  submitBtn && submitBtn.addEventListener('click', ()=>{
+    const name = document.getElementById('reviewName').value.trim();
+    const text = document.getElementById('reviewText').value.trim();
+    if(!name||!text||selectedRating===0){ alert('Provide name, review and rating.'); return; }
+    const reviews = JSON.parse(localStorage.getItem('quontam_reviews')||'[]');
+    reviews.unshift({name,text,rating:selectedRating,date:new Date().toISOString()});
+    localStorage.setItem('quontam_reviews', JSON.stringify(reviews));
+    document.getElementById('reviewName').value=''; document.getElementById('reviewText').value=''; selectedRating=0; stars.forEach(st=>st.classList.remove('active'));
+    displayReviews();
+  });
+
+  function displayReviews(){
+    const reviews = JSON.parse(localStorage.getItem('quontam_reviews')||'[]');
+    const list = document.getElementById('reviewsList'); if(!list) return;
+    list.innerHTML = '';
+    const wrapper = document.createElement('div'); wrapper.className='reviews-wrapper';
+    if(reviews.length===0){ list.innerHTML='<p>No reviews yet — be the first!</p>'; return; }
+    reviews.forEach(r=>{
+      const div=document.createElement('div'); div.className='review-card';
+      const esc = str=>String(str).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      div.innerHTML=`<p><strong>${esc(r.name)}</strong> <small style="color:#aaa">• ${new Date(r.date).toLocaleString()}</small></p>
+        <p>${esc(r.text)}</p>
+        <p>${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</p>`;
+      wrapper.appendChild(div);
+    });
+    list.appendChild(wrapper);
+  }
+  displayReviews();
+})();
+
+// Make nav keyboard friendly
+document.querySelectorAll('nav a').forEach(a=>{a.setAttribute('tabindex','0'); a.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); a.click(); } })});
+
+// Toast helper (for copy fallback if needed elsewhere)
+function showToast(msg){ const t = document.getElementById('toast'); if(!t) return; document.getElementById('toastText').textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); }
+
+// Accessibility: reduce motion respect
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(prefersReduced){ document.documentElement.style.setProperty('transition-duration','0s'); }
+
+// Flip-card interaction: enable click/tap to flip on mobile, hover on desktop (keyboard accessible)
+(function(){
+  const cards = document.querySelectorAll('.card-inner');
+  cards.forEach(card=>{
+    // toggle on click/tap
+    card.addEventListener('click', e=>{
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    });
+    // keyboard support (Enter / Space)
+    card.addEventListener('keydown', e=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        const flipped = card.classList.toggle('is-flipped');
+        card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+      }
+    });
+    // prevent inner button clicks from flipping twice
+    const btn = card.querySelector('button'); if(btn) btn.addEventListener('click', ev=> ev.stopPropagation());
+    // On non-touch devices, allow hover to flip visually and update aria state
+    if(!('ontouchstart' in window)){
+      card.addEventListener('mouseenter', ()=>{
+        card.classList.add('is-flipped');
+        card.setAttribute('aria-pressed','true');
+      });
+      card.addEventListener('mouseleave', ()=>{
+        card.classList.remove('is-flipped');
+        card.setAttribute('aria-pressed','false');
+      });
+    }
+  });
+})();
+
+// setup copy buttons for contact widget and mobile nav
+function setupContactCopy(){
+  // copy buttons already present; add click handlers
+  document.querySelectorAll('.contact-links [data-copy]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      // if it's an anchor, let default action happen on capable devices
+      if(el.tagName.toLowerCase()==='a') return;
+      e.preventDefault();
+      const copy = el.getAttribute('data-copy');
+      try{ await navigator.clipboard.writeText(copy); showToast('Copied: '+copy);}catch(err){ showToast('Copied: '+copy); }
+    });
+  });
+  document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click', async (e)=>{
+    const copy = btn.getAttribute('data-copy');
+    try{ await navigator.clipboard.writeText(copy); showToast('Copied: '+copy);}catch(err){ showToast('Copied: '+copy); }
+  }));
+}
+
+// Mobile nav toggle
+(function(){
+  const btn = document.getElementById('mobileNavToggle');
+  const nav = document.getElementById('mainNav');
+  if(!btn||!nav) return;
+  btn.classList.remove('sr-only');
+  btn.addEventListener('click', ()=>{
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+})();
+
+setupContactCopy();
+
+// Image optimization note: we created WebP variants and use <picture> + srcset for responsive loading.
+
+</script>
+</body>
+</html>
