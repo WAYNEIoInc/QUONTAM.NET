@@ -77,8 +77,8 @@
   .stars span.active { color:var(--gold); }
   /* testimonial cards: rounded + soft shadow; responsive carousel on mobile */
   .reviews-list{margin-top:1em; max-width:100%;}
-  .reviews-list .review-card{background:rgba(255,255,255,0.03); border-radius:12px; padding:12px; margin:8px; min-width:260px; box-shadow:0 6px 18px rgba(0,0,0,0.5);}
-  .reviews-wrapper{display:flex; gap:12px; align-items:stretch;}
+  .reviews-list .review-card{background:rgba(255,255,255,0.03); border-radius:12px; padding:12px; margin:8px; min-width:260px; box-shadow:0 6px 18px rgba(0,0,0,0.5);} 
+  .reviews-wrapper{display:flex; gap:12px; align-items:stretch;} 
   @media(max-width:760px){
     .reviews-wrapper{overflow-x:auto; padding-bottom:8px;}
     .reviews-wrapper .review-card{flex:0 0 auto}
@@ -134,6 +134,28 @@
     .contact-widget{bottom:10px;right:10px}
     .contact-btn{width:50px;height:50px;font-size:24px}
   }
+
+  /* quontam-brand: Wide Latin + gold shimmer for hero */
+  .quontam-brand{font-family:'Wide Latin','Poppins',sans-serif;font-weight:800;background:linear-gradient(90deg,var(--gold),#ffd54a,var(--gold));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+  @keyframes quontamShimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+  .quontam-brand{animation:quontamShimmer 3s linear infinite}
+
+  /* shimmer for plans and team cards (diagonal gold sweep) */
+  .plan, .card-front { position:relative; overflow:hidden; }
+  .plan::before, .card-front::before {
+    content:''; position:absolute; left:-60%; top:-20%; width:40%; height:160%;
+    background:linear-gradient(120deg, rgba(255,255,255,0.02), rgba(212,175,55,0.14), rgba(255,255,255,0.02));
+    transform:skewX(-20deg) translateX(0); opacity:0; pointer-events:none; border-radius:12px;
+  }
+  .plan.play-shimmer::before, .card-front.play-shimmer::before {
+    animation:shimmerMove 1.05s ease forwards; opacity:1;
+  }
+  @keyframes shimmerMove {
+    0%{transform:skewX(-20deg) translateX(-150%);opacity:0}
+    60%{transform:skewX(-20deg) translateX(120%);opacity:1}
+    100%{transform:skewX(-20deg) translateX(300%);opacity:0}
+  }
+
 </style>
 </head>
 <body>
@@ -161,7 +183,7 @@
 
 <main id="maincontent">
 <section id="home" class="active">
-  <h2 class="reveal" tabindex="-1">Welcome to QUONTAM.NET</h2>
+  <h2 class="reveal" tabindex="-1">Welcome to <span class="quontam-brand">QUONTAM.NET</span></h2>
   <p>Your trusted partner in networking and hotspot business solutions.</p>
   <a class="btn gold-glow" onclick="event.preventDefault(); showSection('about')" aria-label="Read the Decree">Read the Decree</a>
 </section>
@@ -194,7 +216,7 @@
     <div class="plan best-value"><h2>Mini Surf</h2><div class="price">KES 15 / 2 hrs</div></div>
     <div class="plan"><h2>Half-Day Hustle</h2><div class="price">KES 50 / 12 hrs</div></div>
     <div class="plan"><h2>Full-Day Flex</h2><div class="price">KES 100 / 24 hrs</div></div>
-    <div class="plan"><h2>Weekend Pass</h2><div class="price">KES 200 / Sat - Sun</div></div>
+    <div class="plan"><h2>Weekend Pass</h2><div class="price">KES 150 / Fri - Sun</div></div>
     <div class="plan"><h2>Weekly Warrior</h2><div class="price">KES 250 / 7 days</div></div>
     <div class="plan"><h2>Monthly Boss</h2><div class="price">KES 900 / 30 days</div></div>
     <div class="plan"><h2>TV</h2><div class="price">KES 1000 / Monthly</div></div>
@@ -256,7 +278,7 @@
     <label for="reviewName" class="sr-only">Your name</label>
     <input type="text" id="reviewName" placeholder="Your Name" aria-label="Your name">
     <label for="reviewText" class="sr-only">Your review</label>
-    <textarea id="reviewText" placeholder="Write your review..." aria-label="Your review"></textarea>
+    <textarea id="reviewText" placeholder="Your review" aria-label="Your review"></textarea>
     <div class="stars" id="stars" aria-label="Rating">
       <span data-star="1" role="button" tabindex="0" aria-label="1 star">★</span><span data-star="2" role="button" tabindex="0" aria-label="2 stars">★</span><span data-star="3" role="button" tabindex="0" aria-label="3 stars">★</span><span data-star="4" role="button" tabindex="0" aria-label="4 stars">★</span><span data-star="5" role="button" tabindex="0" aria-label="5 stars">★</span>
     </div>
@@ -461,6 +483,34 @@ function setupContactCopy(){
 setupContactCopy();
 
 // Image optimization note: we created WebP variants and use <picture> + srcset for responsive loading.
+
+
+// Diagonal shimmer trigger for plans and team cards: plays when element enters viewport and re-triggers on re-entry
+(function(){
+  try{
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        const el = e.target;
+        if(e.isIntersecting){
+          if(el.classList.contains('plan')){
+            el.classList.add('play-shimmer');
+            setTimeout(()=>el.classList.remove('play-shimmer'),1200);
+          }
+          const front = el.querySelector && el.querySelector('.card-front');
+          if(front){ front.classList.add('play-shimmer'); setTimeout(()=>front.classList.remove('play-shimmer'),1200); }
+        } else {
+          el.classList.remove('play-shimmer');
+          const f = el.querySelector && el.querySelector('.card-front'); if(f) f.classList.remove('play-shimmer');
+        }
+      });
+    },{threshold:0.25});
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelectorAll('.plan').forEach((p,i)=>{ obs.observe(p); /* initial staggered entrance shimmer */ setTimeout(()=>{ p.classList.add('play-shimmer'); setTimeout(()=>p.classList.remove('play-shimmer'),1100); }, i*90); });
+      document.querySelectorAll('.team-member').forEach((t,i)=>{ obs.observe(t); setTimeout(()=>{ const f = t.querySelector('.card-front'); if(f){ f.classList.add('play-shimmer'); setTimeout(()=>f.classList.remove('play-shimmer'),1100); } }, i*120); });
+    });
+  }catch(err){console.warn('Shimmer observer failed',err)}
+})();
 
 </script>
 </body>
